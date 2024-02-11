@@ -1,8 +1,9 @@
 package com.example.productservice.models;
 
-import jdk.jfr.Category;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -11,4 +12,5 @@ public class Product extends BaseModel {
     private String desc;
     private Long price;
     private Category category;
+    private List<String> allowedUser;
 }

@@ -1,12 +1,14 @@
 package com.example.productservice.Services;
 
+import com.example.productservice.models.Product;
+
 import java.util.List;
 
 public interface ProductService {
 
-    String getProductById(Long id);
+    Product getProductById(Long id);
 
-    List<String> getAllProducts();
+    List<Product> getAllProducts();
 
     void deleteProductById();
 

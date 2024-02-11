@@ -1,6 +1,7 @@
 package com.example.productservice.Controllers;
 
 import com.example.productservice.Services.ProductService;
+import com.example.productservice.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,14 +25,14 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public String getProductById(@PathVariable("id") Long id) {
+    public Product getProductById(@PathVariable("id") Long id) {
 
         return productService.getProductById(id);
     }
 
     @GetMapping()
-    public List<String> getAllProducts() {
+    public List<Product> getAllProducts() {
 
-        return Collections.emptyList();
+        return productService.getAllProducts();
     }
 }

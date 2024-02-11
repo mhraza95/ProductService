@@ -1,5 +1,6 @@
 package com.example.productservice.Services;
 
+import com.example.productservice.models.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,12 +10,12 @@ public class ProductServiceImpl implements ProductService{
 
 
     @Override
-    public String getProductById(Long id) {
-        return "Product fetched from service. Id: " + id;
+    public Product getProductById(Long id) {
+        return null;
     }
 
     @Override
-    public List<String> getAllProducts() {
+    public List<Product> getAllProducts() {
         return null;
     }
 
