@@ -1,8 +1,11 @@
 package com.example.productservice.Services;
 
 import com.example.productservice.dtos.FakeStoreProductDto;
+import com.example.productservice.exception.ProductNotFoundException;
 import com.example.productservice.models.Category;
 import com.example.productservice.models.Product;
+import com.example.productservice.thirdpartyclients.FakeStoreClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,30 +17,29 @@ import java.util.List;
 @Service("FakeProductService")
 public class FakeProductServiceImpl implements ProductService{
 
+    private FakeStoreClient fakeStoreClient;
     private RestTemplateBuilder restTemplateBuilder;
-    private String getProductUrl = "https://fakestoreapi.com/products/1";
-    private String getAllProductUrl = "https://fakestoreapi.com/products";
-    public FakeProductServiceImpl(RestTemplateBuilder restTemplateBuilder) {
+    //private String getProductUrl = "https://fakestoreapi.com/products/1";
+    //private String getAllProductUrl = "https://fakestoreapi.com/products";
 
-        this.restTemplateBuilder = restTemplateBuilder;
+    @Autowired
+    public FakeProductServiceImpl(FakeStoreClient fakeStoreClient) {
+
+        this.fakeStoreClient = fakeStoreClient;
     }
     @Override
-    public Product getProductById(Long id) {
+    public Product getProductById(Long id) throws ProductNotFoundException {
 
-        RestTemplate restTemplate = restTemplateBuilder.build();
-        ResponseEntity<FakeStoreProductDto> responseEntity = restTemplate.getForEntity(getProductUrl, FakeStoreProductDto.class);
-        return getProductFromFakeStoreDto(responseEntity.getBody());
+        return getProductFromFakeStoreDto(fakeStoreClient.getProductById(id));
     }
 
     @Override
     public List<Product> getAllProducts() {
-        RestTemplate restTemplate = restTemplateBuilder.build();
-        ResponseEntity<FakeStoreProductDto[]> responseEntity = restTemplate.getForEntity(getAllProductUrl, FakeStoreProductDto[].class);
+
         List<Product> productList = new LinkedList<>();
-        for (FakeStoreProductDto fakeStoreProductDto: responseEntity.getBody()) {
+        for (FakeStoreProductDto fakeStoreProductDto: fakeStoreClient.getAllProducts()) {
             productList.add(getProductFromFakeStoreDto(fakeStoreProductDto));
         }
-
         return productList;
     }
 
