@@ -5,10 +5,7 @@ import com.example.productservice.exception.ProductNotFoundException;
 import com.example.productservice.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +22,17 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @PostMapping()
+    public Product addProduct(@RequestBody Product product) {
+
+        return productService.addProduct(product);
+    }
+
+    @PatchMapping("/{id}")
+    public Product updateProduct(@RequestBody Product product, @PathVariable int id) throws ProductNotFoundException {
+
+        return productService.updateProductById(product, id);
+    }
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable("id") Long id) throws ProductNotFoundException {
 
@@ -35,5 +43,17 @@ public class ProductController {
     public List<Product> getAllProducts() {
 
         return productService.getAllProducts();
+    }
+
+    @GetMapping("/limit/")
+    public List<Product> getLimitedProducts(@RequestParam("limit")  int limit) {
+
+        return productService.getLimitedProducts(limit);
+    }
+
+    @DeleteMapping("/{id}")
+    public Product deleteProductById(@PathVariable("id") Long id) throws ProductNotFoundException {
+
+        return productService.deleteProductById(id);
     }
 }

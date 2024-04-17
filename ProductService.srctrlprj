@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+    <source_groups>
+        <source_group_bae91dfb-00d7-4763-aea7-3f415e2192db>
+            <exclude_filters>
+                <exclude_filter>ProductServiceJanBatch24/src</exclude_filter>
+            </exclude_filters>
+            <java_standard>15</java_standard>
+            <maven>
+                <project_file_path>ProductServiceJanBatch24/pom.xml</project_file_path>
+                <should_index_tests>0</should_index_tests>
+            </maven>
+            <name>Java Source Group from Maven</name>
+            <source_extensions>
+                <source_extension>.java</source_extension>
+            </source_extensions>
+            <status>enabled</status>
+            <type>Java Source Group from Maven</type>
+        </source_group_bae91dfb-00d7-4763-aea7-3f415e2192db>
+    </source_groups>
+    <version>8</version>
+</config>

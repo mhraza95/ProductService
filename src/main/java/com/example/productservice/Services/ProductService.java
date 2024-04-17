@@ -11,9 +11,11 @@ public interface ProductService {
 
     List<Product> getAllProducts();
 
-    void deleteProductById();
+    List<Product> getLimitedProducts(int limit);
 
-    void addProduct();
+    Product deleteProductById(Long id) throws ProductNotFoundException;
 
-    void updateProductById();
+    Product addProduct(Product product);
+
+    Product updateProductById(Product product, int id) throws ProductNotFoundException;
 }
