@@ -1,17 +1,31 @@
 package com.example.productservice.Services;
 
+import com.example.productservice.models.Category;
 import com.example.productservice.models.Product;
+import com.example.productservice.repo.CategoryRepo;
+import com.example.productservice.repo.ProductRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("realProductService")
 public class ProductServiceImpl implements ProductService{
 
+    private ProductRepo productRepo;
+    private CategoryRepo categoryRepo;
 
+    public ProductServiceImpl(ProductRepo productRepo, CategoryRepo categoryRepo) {
+
+        this.productRepo = productRepo;
+        this.categoryRepo = categoryRepo;
+    }
     @Override
     public Product getProductById(Long id) {
-        return null;
+
+        Optional<Product> product = productRepo.findById(id);
+        //Category category = product.get().getCategory();
+        return product.get();
     }
 
     @Override
@@ -29,7 +43,18 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product addProduct(Product product) {
-        return null;
+
+        /*Optional<Category> categoryOptional = this.categoryRepo.findByName(product.getCategory().getName());
+
+        if(categoryOptional.isPresent()) {
+
+            product.setCategory(categoryOptional.get());
+        }else {
+            Category category = categoryRepo.save(product.getCategory());
+            product.setCategory(category);
+        }*/
+        return this.productRepo.save(product);
+
     }
 
     @Override

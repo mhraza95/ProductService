@@ -17,12 +17,12 @@ public class ProductController {
     private ProductService productService;
 
     @Autowired
-    public ProductController(@Qualifier("FakeProductService") ProductService productService) {
+    public ProductController(@Qualifier("realProductService") ProductService productService) {
 
         this.productService = productService;
     }
 
-    @PostMapping()
+    @PostMapping("")
     public Product addProduct(@RequestBody Product product) {
 
         return productService.addProduct(product);
