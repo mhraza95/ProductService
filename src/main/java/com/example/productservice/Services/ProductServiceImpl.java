@@ -5,7 +5,9 @@ import com.example.productservice.models.Product;
 import com.example.productservice.repo.CategoryRepo;
 import com.example.productservice.repo.ProductRepo;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,14 +18,18 @@ public class ProductServiceImpl implements ProductService{
     private ProductRepo productRepo;
     private CategoryRepo categoryRepo;
 
-    public ProductServiceImpl(ProductRepo productRepo, CategoryRepo categoryRepo) {
+    private RestTemplate restTemplate;
+
+    public ProductServiceImpl(ProductRepo productRepo, CategoryRepo categoryRepo, RestTemplate restTemplate) {
 
         this.productRepo = productRepo;
         this.categoryRepo = categoryRepo;
+        this.restTemplate = restTemplate;
     }
     @Override
     public Product getProductById(Long id) {
 
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://localhost:8004/users/" + id, String.class);
         Optional<Product> product = productRepo.findById(id);
         //Category category = product.get().getCategory();
         return product.get();
